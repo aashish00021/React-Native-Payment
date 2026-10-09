@@ -4,7 +4,7 @@ const cors = require("cors");
 
 const PORT = 8080;
 
-const stripe = require('stripe')('REMOVED');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 app.use(cors());
@@ -33,7 +33,7 @@ app.post('/payment-sheet', async (req, res) => {
       paymentIntent: paymentIntent.client_secret,
       ephemeralKey: ephemeralKey.secret,
       customer: customer.id,
-      publishableKey: 'REMOVED'
+      publishableKey: process.env.STRIPE_PUBLISHABLE_KEY
     });
   });
 
